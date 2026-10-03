@@ -54,6 +54,8 @@ export default function Footer() {
             View Kampala on Google Maps
           </a>
           <p><Link href="/catering">Catering enquiries</Link></p>
+          <p><Link href="/locations">Delivery zones</Link></p>
+          <p><Link href="/feedback">Feedback</Link></p>
           <p><Link href="/contact">Contact</Link></p>
         </div>
       </div>

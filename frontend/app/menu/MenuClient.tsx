@@ -53,7 +53,15 @@ export default function MenuClient() {
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    api("/menu/items/").then(setItems).catch((e) => setMsg(e.message));
+    api("/menu/items/")
+      .then((data: Item[]) => {
+        setItems(data);
+        const requestedCategory = new URLSearchParams(window.location.search).get("category");
+        if (requestedCategory && data.some((item) => item.category_name === requestedCategory)) {
+          setCat(requestedCategory);
+        }
+      })
+      .catch((e) => setMsg(e.message));
   }, []);
 
   const cats = ["All", ...Array.from(new Set(items.map((x) => x.category_name)))];
@@ -90,6 +98,13 @@ export default function MenuClient() {
     setOpts([]);
   }
 
+  function selectCategory(category: string) {
+    setCat(category);
+    window.requestAnimationFrame(() => {
+      document.getElementById("menuItems")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
   return (
     <>
       <input
@@ -101,19 +116,20 @@ export default function MenuClient() {
       {DEMO_MODE && (
         <p className="notice">Demo menu and simulated ordering are active.</p>
       )}
-      <div className="filters">
+      <div className="filters" role="group" aria-label="Menu categories">
         {cats.map((c) => (
           <button
             className={"filter " + (c === cat ? "active" : "")}
-            onClick={() => setCat(c)}
+            onClick={() => selectCategory(c)}
             key={c}
+            aria-pressed={c === cat}
           >
             {c}
           </button>
         ))}
       </div>
       {msg && <p className="notice error">{msg}</p>}
-      <div className="grid">
+      <div className="grid" id="menuItems" tabIndex={-1}>
         {shown.map((x) => (
           <article className="card" key={x.id}>
             <img src={itemImage(x)} alt={x.name} />

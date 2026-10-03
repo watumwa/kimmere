@@ -82,6 +82,10 @@ async function demoApi(path: string, init?: RequestInit) {
 		return { id: Date.now(), message: "Demo catering request received." };
 	}
 
+	if (path === "/feedback/" && method === "POST") {
+		return { id: Date.now(), message: "Demo feedback received. Thank you for sharing." };
+	}
+
 	const authMatch = path.match(/^\/auth\/(login|register)\/?$/);
 	if (authMatch && method === "POST") {
 		return { name: body.name || body.username, username: body.username };

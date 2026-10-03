@@ -291,10 +291,22 @@ img {
 }
 
 .filters {
+  position: sticky;
+  top: 0;
+  z-index: 25;
   display: flex;
   gap: 9px;
   overflow: auto;
-  padding: 10px 0 4px;
+  margin: 0 -4.35%;
+  padding: 10px 4.35%;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 253, 247, 0.96);
+  backdrop-filter: blur(12px);
+  scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar {
+  display: none;
 }
 
 .filter {
@@ -309,6 +321,10 @@ img {
 .filter.active {
   background: #0b5131;
   color: #fff;
+}
+
+#menuItems {
+  scroll-margin-top: 88px;
 }
 
 .panel {
@@ -747,6 +763,208 @@ img {
   min-width: 0;
 }
 
+.mobileHeroOrder {
+  display: none;
+}
+
+.quickOffers {
+  padding-top: 55px;
+  padding-bottom: 52px;
+}
+
+.offerChips {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.offerChip {
+  display: flex;
+  min-height: 88px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 17px 19px;
+  background: #fff;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.offerChip:hover {
+  border-color: var(--forest);
+  transform: translateY(-2px);
+}
+
+.offerChip span {
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.offerChip strong {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.whySection {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  background: #f2f5e9;
+}
+
+.whyInner {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.valueBadges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.valueBadge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--forest);
+}
+
+.valueBadge span {
+  display: grid;
+  gap: 4px;
+}
+
+.valueBadge small {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.rewardsSection {
+  padding-top: 52px;
+  padding-bottom: 52px;
+}
+
+.rewardsInner {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 0.7fr);
+  align-items: center;
+  gap: 50px;
+}
+
+.rewardsProgress {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+}
+
+.rewardsMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.rewardsMeta span {
+  color: var(--forest);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.progressTrack {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e7ebdf;
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--sun);
+}
+
+.rewardsProgress small {
+  display: block;
+  margin-top: 11px;
+  color: var(--muted);
+}
+
+.locationsMap {
+  height: min(46vw, 430px);
+  min-height: 260px;
+  margin: 28px 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #e9efe1;
+}
+
+.locationsMap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.locationZones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.locationZone {
+  border-top: 2px solid var(--forest);
+  padding: 20px 4px;
+}
+
+.locationZone .eyebrow,
+.locationTime {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.locationZone ul {
+  display: grid;
+  gap: 8px;
+  margin: 17px 0;
+  padding-left: 20px;
+}
+
+.locationTime {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.locationTime strong {
+  color: var(--ink);
+}
+
+.feedbackLayout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+  gap: 60px;
+}
+
+.feedbackForm label {
+  display: grid;
+  gap: 7px;
+  font-weight: 800;
+}
+
+.feedbackForm textarea {
+  resize: vertical;
+}
+
+.feedbackForm button {
+  min-height: 50px;
+}
+
 @media (min-width: 851px) {
   .cjHero {
     background:
@@ -1011,6 +1229,10 @@ img {
   .cjHeroCopy h1 {
     font-size: 48px;
   }
+
+  .offerChips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 850px) {
@@ -1129,10 +1351,28 @@ img {
     margin: 0 auto;
   }
 
+  .mobileHeroOrder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: min(92%, 620px);
+    min-height: 56px;
+    margin: 10px auto 0;
+    border-radius: 8px;
+    background: var(--sun);
+    color: #182418;
+    font-weight: 900;
+  }
+
   .cjHeroCopy {
     width: min(92%, 620px);
     margin: 0 auto;
-    padding: 32px 0 26px;
+    padding: 24px 0 26px;
+  }
+
+  .heroActions .cjStartOrder {
+    display: none;
   }
 
   .cjHeroCopy h1 {
@@ -1149,6 +1389,17 @@ img {
 
   .reviewSlider {
     grid-auto-columns: minmax(80%, 1fr);
+  }
+
+  .whyInner,
+  .rewardsInner,
+  .feedbackLayout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .locationZones {
+    grid-template-columns: 1fr 1fr;
   }
 
   .featureCards,
@@ -1189,6 +1440,69 @@ img {
   .featureCards,
   .modeGrid {
     grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .card img {
+    height: 128px;
+  }
+
+  .cardBody {
+    padding: 12px;
+  }
+
+  .cardBody h3 {
+    font-size: 17px;
+  }
+
+  .cardBody > .lead {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .cardBody > .row:last-child {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .card .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .offerChips {
+    gap: 9px;
+  }
+
+  .offerChip {
+    min-height: 82px;
+    padding: 13px;
+  }
+
+  .offerChip span {
+    font-size: 15px;
+  }
+
+  .offerChip strong {
+    font-size: 12px;
+  }
+
+  .valueBadges,
+  .locationZones {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .locationsMap {
+    min-height: 220px;
+  }
+
+  .feedbackLayout {
+    gap: 20px;
   }
 
   .hero h1 {
@@ -1265,5 +1579,859 @@ img {
 
   .finalCta .actions {
     display: grid;
+  }
+}
+
+/* Kampala warmth homepage */
+
+.siteHeader {
+  position: relative;
+  z-index: 40;
+  background: #fffdf8;
+  color: #092c22;
+}
+
+.utilityBar {
+  height: 44px;
+  background: linear-gradient(90deg, #09532f, #064628);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.utilityInner {
+  width: min(1505px, 84%);
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.utilityGroup,
+.utilityGroup span,
+.utilityGroup a {
+  display: flex;
+  align-items: center;
+}
+
+.utilityGroup {
+  gap: 20px;
+}
+
+.utilityGroup span,
+.utilityGroup a {
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.utilityGroup i {
+  width: 1px;
+  height: 17px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.mainNav {
+  position: relative;
+  width: min(1578px, calc(100% - 40px));
+  height: 101px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding-left: 64px;
+  background: #fffdf8;
+}
+
+.kimmereBrand {
+  position: relative;
+  width: 167px;
+  height: 82px;
+  flex: 0 0 167px;
+  color: #073f2e;
+}
+
+.brandHat {
+  position: absolute;
+  top: 2px;
+  left: 52px;
+  width: 55px;
+  height: 38px;
+  color: #ff7714;
+  stroke-width: 1.7;
+}
+
+.brandName {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 43px;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -3px;
+  line-height: 1;
+  transform: rotate(-2deg);
+}
+
+.kimmereBrand small {
+  position: absolute;
+  right: 7px;
+  bottom: 8px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 2.65vw, 46px);
+  margin-left: 100px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.desktopNav a {
+  position: relative;
+  display: grid;
+  height: 101px;
+  place-items: center;
+  white-space: nowrap;
+}
+
+.desktopNav a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 22px;
+  left: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: #ff7411;
+  opacity: 0;
+  transform: scaleX(0.35);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.desktopNav a:hover,
+.desktopNav a.active {
+  color: #0b4d36;
+}
+
+.desktopNav a:hover::after,
+.desktopNav a.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  margin-left: auto;
+}
+
+.navIcon {
+  display: grid;
+  width: 27px;
+  height: 42px;
+  place-items: center;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.navIcon:hover {
+  color: #ff7411;
+  transform: translateY(-1px);
+}
+
+.referenceCartButton {
+  display: inline-flex;
+  min-width: 164px;
+  min-height: 60px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-radius: 13px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #ffa722, #ff9d1c);
+  color: #102d22;
+  box-shadow: 0 10px 24px rgba(218, 118, 14, 0.12);
+  font-size: 18px;
+  font-weight: 900;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.referenceCartButton:hover {
+  box-shadow: 0 13px 28px rgba(218, 118, 14, 0.22);
+  transform: translateY(-2px);
+}
+
+.navMenuToggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: #0b412e;
+  cursor: pointer;
+}
+
+.warmthHome {
+  background: #fffdf6;
+}
+
+.warmthHero {
+  position: relative;
+  min-height: max(650px, calc(100svh - 145px));
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 28% 84%, rgba(188, 219, 103, 0.12), transparent 31%),
+    radial-gradient(circle at 44% 16%, rgba(255, 236, 190, 0.2), transparent 30%),
+    #fffdf7;
+  color: #073e2d;
+}
+
+.warmthHero::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 36%;
+  width: 15%;
+  background: linear-gradient(90deg, #fffdf7 8%, rgba(255, 253, 247, 0));
+  pointer-events: none;
+}
+
+.warmthHeroInner {
+  position: relative;
+  z-index: 3;
+  width: min(1575px, 87.5%);
+  min-height: max(650px, calc(100svh - 145px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.warmthCopy {
+  width: 690px;
+  padding: 42px 0 33px;
+  transform: translateY(8px);
+}
+
+.freshEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #075c32;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.freshEyebrow > span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  background: #eaf2de;
+  color: #0b7a3f;
+}
+
+.warmthCopy h1 {
+  margin: 12px 0 0;
+  padding-bottom: 9px;
+  color: #053f2f;
+  font-family: "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
+  font-size: clamp(58px, 4.15vw, 75px);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.warmthCopy h1 em {
+  color: #ff6810;
+  font-style: normal;
+}
+
+.headlineLine {
+  display: block;
+  width: max-content;
+  transform-origin: left center;
+}
+
+.headlineLineOne {
+  transform: scaleX(1.16);
+}
+
+.headlineLineTwo {
+  transform: scaleX(1.12);
+}
+
+.orangeSwoosh {
+  display: block;
+  width: 174px;
+  height: 8px;
+  margin-top: 8px;
+  border-top: 6px solid #ff6810;
+  border-radius: 50%;
+  transform: rotate(-2deg);
+}
+
+.warmthLead {
+  margin: 13px 0 0;
+  color: #586864;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.48;
+}
+
+.warmthActions {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  margin-top: 22px;
+}
+
+.startOrderButton,
+.storyButton {
+  display: inline-flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 900;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.startOrderButton {
+  min-width: 289px;
+  gap: 18px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #ff790c, #ff6607);
+  color: #fff;
+  box-shadow: 0 13px 30px rgba(239, 89, 3, 0.2);
+}
+
+.storyButton {
+  min-width: 221px;
+  gap: 11px;
+  border: 2px solid #eeeade;
+  padding: 15px 22px;
+  background: rgba(255, 253, 247, 0.78);
+  color: #154d39;
+}
+
+.startOrderButton:hover,
+.storyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 31px rgba(25, 55, 42, 0.14);
+}
+
+.servicePoints {
+  display: grid;
+  width: 640px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 19px;
+  margin-top: 40px;
+}
+
+.servicePoint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #1e342f;
+  font-size: 13px;
+}
+
+.serviceIcon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  place-items: center;
+  border-radius: 22px;
+  background: #e8f1dc;
+  color: #08723b;
+}
+
+.servicePoint > span:last-child {
+  display: grid;
+  gap: 4px;
+  line-height: 1.05;
+}
+
+.servicePoint strong,
+.servicePoint small {
+  white-space: nowrap;
+}
+
+.servicePoint strong {
+  font-size: 13px;
+}
+
+.servicePoint small {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.customerProof {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  margin-top: 42px;
+}
+
+.customerFaces {
+  display: flex;
+  align-items: center;
+  padding-left: 1px;
+}
+
+.customerFacesReference {
+  width: 184px;
+  height: 58px;
+  flex: 0 0 184px;
+  padding: 0;
+  background-image: url("/images/reference/kimmere-kampala-warmth.png");
+  background-position: -111px -763px;
+  background-repeat: no-repeat;
+  background-size: 1799px 874px;
+}
+
+.customerFaces .face,
+.customerFaces > strong {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  place-items: center;
+  margin-left: -10px;
+  border: 2px solid #fffdf7;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.customerFaces .face:first-child {
+  margin-left: 0;
+}
+
+.faceOne { background: linear-gradient(150deg, #73878c, #d6b9a7); }
+.faceTwo { background: linear-gradient(150deg, #9d5938, #e9b36c); }
+.faceThree { background: linear-gradient(150deg, #e1c59d, #6f5543); }
+.faceFour { background: linear-gradient(150deg, #66402f, #e5a279); }
+
+.customerFaces > strong {
+  width: 54px;
+  height: 54px;
+  margin-left: -8px;
+  border-width: 3px;
+  background: #087236;
+  font-size: 14px;
+}
+
+.ratingCopy {
+  display: grid;
+  gap: 8px;
+  color: #50625e;
+  font-size: 16px;
+}
+
+.ratingStars {
+  display: flex;
+  gap: 4px;
+  color: #ffa51c;
+}
+
+.referenceHeroArt {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 0 40.5vw;
+  overflow: hidden;
+}
+
+.referenceHeroArt img {
+  position: absolute;
+  top: -8.06vw;
+  left: -40.5vw;
+  width: 100vw;
+  max-width: none;
+  height: auto;
+  user-select: none;
+}
+
+.botanical {
+  position: absolute;
+  z-index: 0;
+  color: #87b776;
+  opacity: 0.11;
+  stroke-width: 1;
+}
+
+.botanicalOne {
+  top: 38px;
+  left: -34px;
+  width: 140px;
+  height: 140px;
+  transform: rotate(-38deg);
+}
+
+.botanicalTwo {
+  bottom: 40px;
+  left: -26px;
+  width: 130px;
+  height: 130px;
+  transform: rotate(38deg);
+}
+
+.mobileFoodVisual {
+  display: none;
+}
+
+@media (max-width: 1450px) {
+  .mainNav {
+    gap: 20px;
+    padding-left: 0;
+  }
+
+  .desktopNav {
+    gap: 22px;
+    margin-left: auto;
+    font-size: 15px;
+  }
+
+  .navActions {
+    gap: 12px;
+  }
+
+  .referenceCartButton {
+    min-width: 142px;
+    padding-inline: 17px;
+  }
+
+  .warmthCopy {
+    width: 620px;
+    transform: none;
+  }
+
+  .warmthCopy h1 {
+    font-size: 57px;
+  }
+
+  .headlineLineOne,
+  .headlineLineTwo {
+    transform: none;
+  }
+
+  .warmthLead {
+    font-size: 17px;
+  }
+
+  .servicePoints {
+    width: 590px;
+    gap: 10px;
+  }
+
+  .serviceIcon {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .utilityInner {
+    width: calc(100% - 40px);
+  }
+
+  .utilityGroup {
+    gap: 12px;
+  }
+
+  .desktopNav {
+    gap: 15px;
+  }
+
+  .desktopNav a:nth-last-child(2) {
+    display: none;
+  }
+
+  .kimmereBrand {
+    width: 145px;
+    flex-basis: 145px;
+  }
+
+  .brandName {
+    font-size: 38px;
+  }
+
+  .referenceCartButton {
+    min-width: 56px;
+  }
+
+  .referenceCartButton span {
+    display: none;
+  }
+
+  .referenceHeroArt {
+    opacity: 0.78;
+  }
+
+  .warmthHero::after {
+    left: 43%;
+    width: 30%;
+  }
+}
+
+@media (max-width: 900px) {
+  .siteHeader {
+    position: sticky;
+    top: 0;
+  }
+
+  .utilityBar {
+    height: 36px;
+    font-size: 12px;
+  }
+
+  .utilityGroup > span:not(:first-child),
+  .utilityGroup > i,
+  .utilityContact > a:first-child {
+    display: none;
+  }
+
+  .mainNav {
+    height: 78px;
+  }
+
+  .kimmereBrand {
+    width: 138px;
+    height: 70px;
+    flex-basis: 138px;
+  }
+
+  .brandHat {
+    top: 0;
+    left: 42px;
+    width: 46px;
+    height: 31px;
+  }
+
+  .brandName {
+    top: 23px;
+    font-size: 35px;
+  }
+
+  .kimmereBrand small {
+    bottom: 4px;
+  }
+
+  .desktopNav {
+    position: absolute;
+    z-index: 30;
+    top: 78px;
+    right: -20px;
+    left: -20px;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid #eee9dc;
+    padding: 10px 20px 18px;
+    background: #fffdf8;
+    box-shadow: 0 15px 28px rgba(10, 42, 30, 0.12);
+  }
+
+  .desktopNav.mobileNavOpen {
+    display: flex;
+  }
+
+  .desktopNav a,
+  .desktopNav a:nth-last-child(2) {
+    display: flex;
+    height: 45px;
+  }
+
+  .desktopNav a::after {
+    right: auto;
+    bottom: 5px;
+    width: 32px;
+  }
+
+  .navActions {
+    margin-left: auto;
+  }
+
+  .navIcon {
+    display: none;
+  }
+
+  .navMenuToggle {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+  }
+
+  .referenceHeroArt {
+    display: none;
+  }
+
+  .warmthHero,
+  .warmthHeroInner {
+    min-height: auto;
+  }
+
+  .warmthHero::after {
+    display: none;
+  }
+
+  .warmthHeroInner {
+    width: min(680px, calc(100% - 36px));
+    align-items: stretch;
+    flex-direction: column;
+    padding: 54px 0 48px;
+  }
+
+  .warmthCopy {
+    width: 100%;
+    padding: 0;
+    transform: none;
+  }
+
+  .warmthCopy h1 {
+    font-size: clamp(47px, 10vw, 66px);
+  }
+
+  .warmthLead {
+    font-size: 18px;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+
+  .servicePoints {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .mobileFoodVisual {
+    position: relative;
+    display: block;
+    margin-top: 45px;
+    overflow: hidden;
+    border-radius: 70px 14px 70px 14px;
+    background: #173e24;
+    box-shadow: 0 24px 48px rgba(25, 55, 40, 0.18);
+  }
+
+  .mobileFoodVisual img {
+    width: 100%;
+    min-height: 360px;
+    object-fit: cover;
+  }
+
+  .mobileFoodVisual > span {
+    position: absolute;
+    top: 24px;
+    right: 18px;
+    display: grid;
+    gap: 3px;
+    border-radius: 9px;
+    padding: 14px 17px;
+    background: rgba(3, 28, 18, 0.92);
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .mobileFoodVisual small {
+    color: #ff7c16;
+    font-family: cursive;
+    text-transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .utilityInner {
+    width: calc(100% - 28px);
+  }
+
+  .utilityContact a {
+    font-size: 0;
+  }
+
+  .utilityContact a svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .mainNav {
+    width: calc(100% - 28px);
+  }
+
+  .referenceCartButton {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 10px;
+  }
+
+  .warmthHeroInner {
+    width: calc(100% - 32px);
+    padding-top: 40px;
+  }
+
+  .freshEyebrow {
+    font-size: 14px;
+  }
+
+  .warmthCopy h1 {
+    margin-top: 18px;
+    font-size: clamp(39px, 11.2vw, 50px);
+  }
+
+  .warmthActions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .startOrderButton,
+  .storyButton {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .servicePoints {
+    margin-top: 32px;
+  }
+
+  .servicePoint {
+    gap: 8px;
+  }
+
+  .serviceIcon {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+    border-radius: 17px;
+  }
+
+  .customerProof {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .mobileFoodVisual img {
+    min-height: 270px;
   }
 }

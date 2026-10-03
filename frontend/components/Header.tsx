@@ -1,16 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, ShoppingBag } from "lucide-react";
+import { usePathname } from "next/navigation";
+import {
+  Bike,
+  ChefHat,
+  Clock3,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Phone,
+  Search,
+  ShoppingCart,
+  UserRound,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCart } from "@/lib/cart";
 
 const phoneNumber = "0740044426";
-const whatsappUrl = "https://wa.me/256754188477?text=Hello%20Kimmere%20Foodhub";
+const whatsappUrl =
+  "https://wa.me/256740044426?text=Hello%20Kimmere%20Foodhub";
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/menu", label: "Menu" },
+  { href: "/offers", label: "Offers" },
+  { href: "/catering", label: "Catering" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/track-order", label: "Track Order" },
+];
 
 export default function Header() {
+  const pathname = usePathname();
   const [count, setCount] = useState(0);
-  const [floatingControlsVisible, setFloatingControlsVisible] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const updateCount = () =>
@@ -21,73 +46,64 @@ export default function Header() {
     return () => removeEventListener("cart-change", updateCount);
   }, []);
 
-  useEffect(() => {
-    let previousScrollY = window.scrollY;
-
-    const updateFloatingControls = () => {
-      const currentScrollY = window.scrollY;
-      const shouldShow = currentScrollY < 80 || currentScrollY < previousScrollY;
-      setFloatingControlsVisible((visible) => visible === shouldShow ? visible : shouldShow);
-      previousScrollY = currentScrollY;
-    };
-
-    addEventListener("scroll", updateFloatingControls, { passive: true });
-    return () => removeEventListener("scroll", updateFloatingControls);
-  }, []);
-
-  const floatingClass = floatingControlsVisible ? "" : " floatingActionsHidden";
+  useEffect(() => setMenuOpen(false), [pathname]);
 
   return (
-    <>
-      <div className="top">
-        <span>Dining · Takeaway · Delivery around Kampala</span>
-        <span aria-hidden="true">|</span>
-        <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
-        <a href={whatsappUrl} target="_blank" rel="noreferrer">
-          <MessageCircle size={14} /> WhatsApp
-        </a>
+    <header className="siteHeader">
+      <div className="utilityBar">
+        <div className="utilityInner">
+          <div className="utilityGroup">
+            <span><MapPin size={17} /> Kampala</span>
+            <i aria-hidden="true" />
+            <span><Bike size={18} /> Delivery • Takeaway • Dine-in</span>
+            <i aria-hidden="true" />
+            <span><Clock3 size={18} /> Open Daily: 8:00 AM – 10:00 PM</span>
+          </div>
+          <div className="utilityGroup utilityContact">
+            <a href={`tel:${phoneNumber}`}><Phone size={17} /> {phoneNumber}</a>
+            <i aria-hidden="true" />
+            <a href={whatsappUrl} target="_blank" rel="noreferrer">
+              <MessageCircle size={18} /> WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
-      <div
-        className={`container nav${floatingControlsVisible ? "" : " navHidden"}`}
-        aria-hidden={!floatingControlsVisible}
-      >
-        <Link className="brand" href="/">
-          <img src="/images/brand/kimmere-logo.jpg" alt="Kimmere Foodhub" />
-          <span>KIMMERE</span>
+
+      <div className="mainNav">
+        <Link className="kimmereBrand" href="/" aria-label="Kimmere Foodhub home">
+          <ChefHat className="brandHat" aria-hidden="true" />
+          <span className="brandName">Kimmere</span>
+          <small>foodhub</small>
         </Link>
-        <nav className="links" aria-label="Main navigation">
-          <Link href="/menu">Menu</Link>
-          <Link href="/offers">Offers</Link>
-          <Link href="/catering">Catering</Link>
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/track-order">Track Order</Link>
+
+        <nav className={`desktopNav${menuOpen ? " mobileNavOpen" : ""}`} aria-label="Main navigation">
+          {navItems.map((item) => {
+            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            return (
+              <Link className={active ? "active" : ""} href={item.href} key={item.href}>
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
-        <Link className="btn headerCart" href="/cart">
-          <ShoppingBag size={17} /> Cart ({count})
-        </Link>
+
+        <div className="navActions">
+          <Link className="navIcon" href="/menu" aria-label="Search the menu"><Search size={24} /></Link>
+          <Link className="navIcon" href="/account" aria-label="Your account"><UserRound size={24} /></Link>
+          <Link className="referenceCartButton" href="/cart">
+            <ShoppingCart size={24} /> <span>Cart ({count})</span>
+          </Link>
+          <button
+            className="navMenuToggle"
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={25} /> : <Menu size={25} />}
+          </button>
+        </div>
       </div>
-      <Link
-        className={`mobileCart btn${floatingClass}`}
-        href="/cart"
-        aria-label={`Open cart, ${count} items`}
-        aria-hidden={!floatingControlsVisible}
-        tabIndex={floatingControlsVisible ? 0 : -1}
-      >
-        <ShoppingBag size={19} /> Cart ({count})
-      </Link>
-      <a
-        className={`floatingWhatsapp${floatingClass}`}
-        href={whatsappUrl}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Chat with Kimmere on WhatsApp"
-        title="Chat with Kimmere on WhatsApp"
-        aria-hidden={!floatingControlsVisible}
-        tabIndex={floatingControlsVisible ? 0 : -1}
-      >
-        <MessageCircle size={22} aria-hidden="true" />
-      </a>
-    </>
+    </header>
   );
 }
