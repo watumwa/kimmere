@@ -2150,14 +2150,27 @@ img {
   pointer-events: auto;
 }
 
+.dishThumbnailsViewport {
+  width: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.dishThumbnailsViewport::-webkit-scrollbar {
+  display: none;
+}
+
 .dishThumbnails {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  width: max-content;
   gap: 14px;
 }
 
 .dishThumbnail {
-  min-width: 0;
+  width: 136px;
+  min-width: 136px;
+  flex: 0 0 136px;
   border: 0;
   padding: 0;
   background: transparent;
@@ -2281,6 +2294,12 @@ img {
     gap: 9px;
   }
 
+  .dishThumbnail {
+    width: calc((46vw - 68px) / 5);
+    min-width: calc((46vw - 68px) / 5);
+    flex-basis: calc((46vw - 68px) / 5);
+  }
+
   .dishThumbnail > span:last-child {
     font-size: 11px;
   }
@@ -2367,6 +2386,12 @@ img {
 
   .dishThumbImage {
     height: 72px;
+  }
+
+  .dishThumbnail {
+    width: calc((49.5vw - 60px) / 5);
+    min-width: calc((49.5vw - 60px) / 5);
+    flex-basis: calc((49.5vw - 60px) / 5);
   }
 
   .warmthHero::after {
@@ -2574,14 +2599,10 @@ img {
     background: #ff650d;
   }
 
-  .mobileFoodVisual > img {
-    animation: heroDishFade 0.65s ease both;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .changingHeroDish,
-  .mobileFoodVisual > img {
+  .changingHeroDish {
     animation: none;
   }
 }

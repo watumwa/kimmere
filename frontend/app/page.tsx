@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Bike,
@@ -62,25 +62,72 @@ const servicePoints = [
 ];
 
 export default function Home() {
-  const [activeDish, setActiveDish] = useState(0);
+  const [activeThumbnail, setActiveThumbnail] = useState(0);
+  const thumbnailViewport = useRef<HTMLDivElement>(null);
+
+  const getThumbnailStep = () => {
+    const firstThumbnail = thumbnailViewport.current?.querySelector<HTMLElement>(".dishThumbnail");
+    const thumbnailTrack = firstThumbnail?.parentElement;
+    const gap = thumbnailTrack ? Number.parseFloat(window.getComputedStyle(thumbnailTrack).gap) || 0 : 0;
+    return firstThumbnail ? firstThumbnail.offsetWidth + gap : 0;
+  };
+
+  const scrollToThumbnail = (index: number, behavior: ScrollBehavior = "smooth") => {
+    thumbnailViewport.current?.scrollTo({
+      left: getThumbnailStep() * index,
+      behavior,
+    });
+  };
+
+  const selectNextThumbnail = () => {
+    setActiveThumbnail((current) => {
+      const next = current + 1;
+
+      if (next === dishes.length) {
+        scrollToThumbnail(dishes.length);
+        window.setTimeout(() => scrollToThumbnail(0, "auto"), 650);
+        return 0;
+      }
+
+      scrollToThumbnail(next);
+      return next;
+    });
+  };
+
+  const selectPreviousThumbnail = () => {
+    setActiveThumbnail((current) => {
+      if (current === 0) {
+        scrollToThumbnail(dishes.length, "auto");
+        window.requestAnimationFrame(() => scrollToThumbnail(dishes.length - 1));
+        return dishes.length - 1;
+      }
+
+      const previous = current - 1;
+      scrollToThumbnail(previous);
+      return previous;
+    });
+  };
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const timer = window.setInterval(() => {
-      setActiveDish((current) => (current + 1) % dishes.length);
-    }, 4500);
+      setActiveThumbnail((current) => {
+        const next = current + 1;
+
+        if (next === dishes.length) {
+          scrollToThumbnail(dishes.length);
+          window.setTimeout(() => scrollToThumbnail(0, "auto"), 650);
+          return 0;
+        }
+
+        scrollToThumbnail(next);
+        return next;
+      });
+    }, 3200);
 
     return () => window.clearInterval(timer);
   }, []);
-
-  const selectPreviousDish = () =>
-    setActiveDish((current) => (current - 1 + dishes.length) % dishes.length);
-
-  const selectNextDish = () =>
-    setActiveDish((current) => (current + 1) % dishes.length);
-
-  const currentDish = dishes[activeDish];
 
   return (
     <main className="warmthHome">
@@ -97,49 +144,38 @@ export default function Home() {
         </div>
 
         <div className="foodCarousel" aria-label="Featured dishes carousel">
-          {activeDish !== 0 && (
-            <img
-              className="changingHeroDish"
-              key={currentDish.name}
-              src={currentDish.image}
-              style={{ objectPosition: currentDish.position }}
-              alt={currentDish.name}
-            />
-          )}
-
-          <div className="carouselDishLabel" aria-live="polite">
-            <small>Signature Dish</small>
-            <strong>{currentDish.name}</strong>
-            <span>{currentDish.detail}</span>
-          </div>
-
           <button
             className="carouselArrow carouselArrowLeft"
             type="button"
-            onClick={selectPreviousDish}
-            aria-label="Show previous dish"
+            onClick={selectPreviousThumbnail}
+            aria-label="Move thumbnails backward"
           >
             <ChevronLeft size={30} />
           </button>
           <button
             className="carouselArrow carouselArrowRight"
             type="button"
-            onClick={selectNextDish}
-            aria-label="Show next dish"
+            onClick={selectNextThumbnail}
+            aria-label="Move thumbnails forward"
           >
             <ChevronRight size={30} />
           </button>
 
           <div className="foodCarouselRail">
-            <div className="dishThumbnails">
-              {dishes.map((dish, index) => (
+            <div className="dishThumbnailsViewport" ref={thumbnailViewport}>
+              <div className="dishThumbnails">
+              {[...dishes, ...dishes].map((dish, index) => (
                 <button
-                  className={`dishThumbnail${index === activeDish ? " active" : ""}`}
+                  className={`dishThumbnail${index % dishes.length === activeThumbnail ? " active" : ""}`}
                   type="button"
-                  key={dish.name}
-                  onClick={() => setActiveDish(index)}
-                  aria-label={`Show ${dish.name}`}
-                  aria-current={index === activeDish ? "true" : undefined}
+                  key={`${dish.name}-${index}`}
+                  onClick={() => {
+                    const selectedIndex = index % dishes.length;
+                    setActiveThumbnail(selectedIndex);
+                    scrollToThumbnail(index);
+                  }}
+                  aria-label={`Select ${dish.name} thumbnail`}
+                  aria-current={index % dishes.length === activeThumbnail ? "true" : undefined}
                 >
                   <span
                     className="dishThumbImage"
@@ -149,10 +185,11 @@ export default function Home() {
                   <span>{dish.name}</span>
                 </button>
               ))}
+              </div>
             </div>
             <div className="carouselDots" aria-hidden="true">
               {dishes.map((dish, index) => (
-                <span className={index === activeDish ? "active" : ""} key={dish.name} />
+                <span className={index === activeThumbnail ? "active" : ""} key={dish.name} />
               ))}
             </div>
           </div>
@@ -208,20 +245,21 @@ export default function Home() {
 
           <div className="mobileFoodVisual">
             <img
-              key={currentDish.name}
-              src={currentDish.image}
-              style={{ objectPosition: currentDish.position }}
-              alt={currentDish.name}
+              src="/images/food/local-platter.jpeg"
+              alt="Beef stew with rice, greens and salad"
             />
-            <span><small>Signature Dish</small><strong>{currentDish.name}</strong></span>
+            <span><small>Signature Dish</small><strong>Beef Stew</strong></span>
             <div className="mobileCarouselDots" aria-label="Choose a featured dish">
               {dishes.map((dish, index) => (
                 <button
-                  className={index === activeDish ? "active" : ""}
+                  className={index === activeThumbnail ? "active" : ""}
                   type="button"
                   key={dish.name}
-                  onClick={() => setActiveDish(index)}
-                  aria-label={`Show ${dish.name}`}
+                  onClick={() => {
+                    setActiveThumbnail(index);
+                    scrollToThumbnail(index);
+                  }}
+                  aria-label={`Select ${dish.name} thumbnail`}
                 />
               ))}
             </div>
