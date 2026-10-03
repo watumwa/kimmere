@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getCart } from "@/lib/cart";
 
 const phoneNumber = "0740044426";
-const whatsappUrl = "https://wa.me/256740044426?text=Hello%20Kimmere%20Foodhub";
+const whatsappUrl = "https://wa.me/256754188477?text=Hello%20Kimmere%20Foodhub";
 
 export default function Header() {
   const [count, setCount] = useState(0);
@@ -55,10 +55,10 @@ export default function Header() {
         href={whatsappUrl}
         target="_blank"
         rel="noreferrer"
-        aria-label={`Chat on WhatsApp at ${phoneNumber}`}
+        aria-label="Chat with Kimmere on WhatsApp"
+        title="Chat with Kimmere on WhatsApp"
       >
         <MessageCircle size={22} aria-hidden="true" />
-        <span>{phoneNumber}</span>
       </a>
     </>
   );

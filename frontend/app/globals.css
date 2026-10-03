@@ -384,11 +384,13 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  min-height: 52px;
+  width: 56px;
+  height: 56px;
+  min-height: 56px;
+  aspect-ratio: 1;
   border: 2px solid #fff;
-  border-radius: 999px;
-  padding: 0 17px;
+  border-radius: 50%;
+  padding: 0;
   background: #168b4b;
   color: #fff;
   box-shadow: 0 7px 22px rgba(15, 45, 26, 0.26);
@@ -1024,8 +1026,9 @@ img {
   .floatingWhatsapp {
     right: 4%;
     bottom: calc(80px + env(safe-area-inset-bottom));
+    width: 48px;
+    height: 48px;
     min-height: 48px;
-    padding: 0 14px;
   }
 
   body {
