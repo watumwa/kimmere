@@ -1,0 +1,1 @@
+import MenuClient from './MenuClient';export default function Menu(){return <main className="section"><div className="container"><div className="eyebrow">Order online</div><h1 className="title">Kimmere Menu</h1><p className="lead">Freshly prepared food with clear prices. Search or browse by category.</p><MenuClient/></div></main>}

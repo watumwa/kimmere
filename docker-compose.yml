@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: kimmere
+      POSTGRES_USER: kimmere
+      POSTGRES_PASSWORD: kimmere
+    ports: ["5432:5432"]
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql://kimmere:kimmere@db:5432/kimmere
+      DJANGO_SECRET_KEY: dev-only-change-me
+      DJANGO_DEBUG: "True"
+    depends_on: [db]
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000/api/v1
+    depends_on: [backend]

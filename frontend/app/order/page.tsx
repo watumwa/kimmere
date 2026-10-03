@@ -1,0 +1,1 @@
+import Link from "next/link";export default function Page(){return <main className="section"><div className="wrap"><h1>Order Online</h1><p className="lead">Browse the live menu and add your favourite dishes to cart.</p><Link className="btn" href="/menu">Explore Menu</Link></div></main>}
