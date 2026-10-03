@@ -747,6 +747,41 @@ img {
   min-width: 0;
 }
 
+@media (min-width: 851px) {
+  .cjHero {
+    background:
+      radial-gradient(ellipse at 62% 72%, rgba(220, 231, 206, 0.58), transparent 38%),
+      linear-gradient(112deg, #f7f2e5 0%, #fffdf7 58%, #e9efe1 100%);
+    color: var(--ink);
+  }
+
+  .cjHero::before {
+    display: none;
+  }
+
+  .cjHeroCopy {
+    text-shadow: none;
+  }
+
+  .cjBrandLockup,
+  .cjCallLink,
+  .cjHeroFoot {
+    color: var(--forest);
+  }
+
+  .cjHeroCopy p {
+    color: var(--muted);
+  }
+
+  .cjCallLink {
+    text-decoration-color: rgba(10, 71, 37, 0.45);
+  }
+
+  .cjHeroFoot {
+    border-color: rgba(10, 71, 37, 0.24);
+  }
+}
+
 .reviewsSection {
   overflow: hidden;
   background: #fff;
