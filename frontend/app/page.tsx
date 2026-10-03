@@ -1,29 +1,18 @@
 import Link from 'next/link';
 import {
   ArrowRight,
-  ChefHat,
+  Banknote,
   Clock3,
   Coffee,
-  Gift,
   Info,
   MapPin,
-  MessageCircle,
-  PartyPopper,
   Phone,
   ShoppingBag,
-  Sparkles,
   Star,
   Truck,
   Utensils,
 } from 'lucide-react';
-
-const heroLinks = [
-  { href: '/menu', label: 'Menu', Icon: ChefHat },
-  { href: '/offers', label: 'Offers', Icon: Gift },
-  { href: '/catering', label: 'Catering', Icon: PartyPopper },
-  { href: '/gallery', label: 'Gallery', Icon: Sparkles },
-  { href: '/contact', label: 'Contact', Icon: MessageCircle },
-];
+import { demoDeliveryZones } from '@/lib/demo-data';
 
 const favourites = [
   {
@@ -49,60 +38,88 @@ const favourites = [
   },
 ];
 
+const guestNotes = [
+  {
+    quote: 'The luwombo was full of flavour and still warm when lunch arrived.',
+    source: 'Office lunch · Kampala',
+  },
+  {
+    quote: 'Ordering for the whole team was easy, and everyone found a favourite.',
+    source: 'Team catering · Ntinda',
+  },
+  {
+    quote: 'A proper local plate that made a busy workday feel like home.',
+    source: 'Lunch regular · Bugolobi',
+  },
+];
+
 export default function Home() {
   return (
     <main className="homePage">
       <section className="cjHero" aria-label="Kimmere Foodhub">
         <div className="cjHeroMedia" aria-hidden="true">
           <div className="cjPhoto cjPhotoLeft">
-            <img src="/images/food/luwombo-bowl.jpeg" alt="" />
-          </div>
-          <div className="cjPhoto cjPhotoRight">
-            <img src="/images/food/feast-platter.jpeg" alt="" />
+            <img src="/images/food/luwombo-open.jpeg" alt="" />
           </div>
         </div>
 
         <div className="cjHeroCopy">
           <div className="cjBrandLockup">
             <img src="/images/brand/kimmere-logo.jpg" alt="Kimmere Foodhub" />
-            <span>Dining • Takeaway • Delivery</span>
+            <span>Fresh from Kampala</span>
           </div>
-          <h1>Fresh local flavour, served your way.</h1>
+          <h1>Unwrap a little Kampala warmth.</h1>
           <p>
-            Rich Ugandan meals, quick snacks, fresh juices and coffee prepared
-            for dine-in, pickup and delivery around Kampala.
+            Banana-leaf luwombo, generous lunch plates and fresh juice, made for
+            sharing or enjoying all to yourself.
           </p>
+          <div className="heroActions">
+            <Link className="cjStartOrder" href="/menu">
+              <ShoppingBag size={22} />
+              <span>Start your order</span>
+              <ArrowRight size={20} />
+            </Link>
+            <a className="cjCallLink" href="tel:0740044426">
+              <Phone size={18} /> Call 0740044426
+            </a>
+          </div>
+          <div className="paymentBadges" aria-label="Payment options">
+            <span className="paymentBadge cashBadge"><Banknote size={17} /> Cash at pickup or delivery</span>
+            <span className="paymentBadge comingBadge">MTN MoMo · coming soon</span>
+            <span className="paymentBadge comingBadge">Airtel Money · coming soon</span>
+          </div>
         </div>
 
-        <Link className="cjStartOrder" href="/menu">
-          <ShoppingBag size={30} />
-          <span>Start order</span>
-        </Link>
-
-        <aside className="cjNavCard" aria-label="Featured navigation">
-          <div className="cjLogoText">Kimmere</div>
-          <p>foodhub</p>
-          <nav>
-            {heroLinks.map(({ href, label, Icon }) => (
-              <Link href={href} key={label}>
-                <Icon size={23} strokeWidth={1.7} />
-                <span>{label}</span>
-                <ArrowRight size={18} strokeWidth={1.8} />
-              </Link>
-            ))}
-          </nav>
-        </aside>
-
         <div className="cjHeroFoot">
-          <span>
-            <Phone size={18} /> 0740044426
-          </span>
           <span>
             <Clock3 size={18} /> Freshly prepared daily
           </span>
           <span>
             <MapPin size={18} /> Kampala
           </span>
+        </div>
+      </section>
+
+      <section className="section localDelivery" id="delivery">
+        <div className="container">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Kampala delivery</div>
+              <h2 className="title">Good food, closer to you.</h2>
+            </div>
+            <p className="lead deliveryLead">
+              Delivery starts at UGX 2,500. Choose your area at checkout to see
+              the exact fee.
+            </p>
+          </div>
+          <div className="zoneGrid">
+            {demoDeliveryZones.map((zone) => (
+              <div className="zoneRow" key={zone.id}>
+                <span>{zone.name}</span>
+                <strong>UGX {zone.fee.toLocaleString()}</strong>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -168,6 +185,28 @@ export default function Home() {
             <h3>Snacks</h3>
             <p>Tea, coffee, juices and quick bites all day.</p>
           </div>
+        </div>
+      </section>
+
+      <section className="section reviewsSection">
+        <div className="container">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Around the lunch table</div>
+              <h2 className="title">Made for the moments you share.</h2>
+            </div>
+            <span className="reviewSampleLabel">Sample guest notes</span>
+          </div>
+          <div className="reviewSlider" aria-label="Sample guest feedback">
+            {guestNotes.map((note) => (
+              <article className="reviewSlide" key={note.source}>
+                <div className="reviewStars" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>“{note.quote}”</blockquote>
+                <p>{note.source}</p>
+              </article>
+            ))}
+          </div>
+          <p className="reviewDisclosure">Demo testimonials shown for preview; replace with verified customer reviews.</p>
         </div>
       </section>
 

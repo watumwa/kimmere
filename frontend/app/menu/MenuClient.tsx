@@ -131,6 +131,17 @@ export default function MenuClient() {
                 <button
                   className="btn"
                   onClick={() => {
+                    if (x.variants.length === 0 && x.modifier_groups.length === 0) {
+                      addCart({
+                        id: x.id,
+                        name: x.name,
+                        price: Number(x.price),
+                        quantity: 1,
+                        option_ids: [],
+                        options: [],
+                      });
+                      return;
+                    }
                     setPick(x);
                     setVariant(null);
                     setOpts([]);

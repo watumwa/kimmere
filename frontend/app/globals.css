@@ -1,8 +1,8 @@
 :root {
   --ink: #111713;
   --muted: #667066;
-  --forest: #07462a;
-  --forest-deep: #04170f;
+  --forest: #0a4725;
+  --forest-deep: var(--forest);
   --leaf: #a9d64f;
   --sun: #ff9d22;
   --red: #f32218;
@@ -53,9 +53,20 @@ img {
 .top {
   background: var(--forest-deep);
   color: #fff;
-  padding: 8px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 9px 12px;
   font-size: 13px;
+}
+
+.top a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  font-weight: 800;
 }
 
 .nav {
@@ -155,7 +166,7 @@ img {
 }
 
 .section.dark {
-  background: #071c13;
+  background: var(--forest);
   color: #fff;
 }
 
@@ -365,6 +376,51 @@ img {
   display: none;
 }
 
+.headerCart {
+  flex-shrink: 0;
+}
+
+.footerAction,
+.footerMapLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 10px 0;
+  color: #fff;
+  font-weight: 800;
+}
+
+.footerAction:hover,
+.footerMapLink:hover {
+  color: var(--sun);
+}
+
+.footerMap {
+  height: 170px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+}
+
+.footerMap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.inlinePhone {
+  color: var(--forest);
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footerCopyright {
+  margin-top: 30px;
+  font-size: 13px;
+}
+
 .notice {
   border-radius: 8px;
   padding: 14px;
@@ -421,7 +477,9 @@ img {
 
 .cjHero {
   position: relative;
-  min-height: calc(100svh - 108px);
+  display: flex;
+  align-items: center;
+  min-height: max(620px, calc(100svh - 108px));
   overflow: hidden;
   isolation: isolate;
   background: var(--forest-deep);
@@ -436,36 +494,23 @@ img {
   background:
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.12) 0%,
-      rgba(0, 0, 0, 0.24) 33%,
-      rgba(255, 255, 255, 0.44) 52%,
-      rgba(0, 0, 0, 0.22) 100%
-    );
-}
-
-.cjHero::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background:
-    radial-gradient(circle at 49% 50%, rgba(255, 255, 255, 0.54), transparent 18%),
-    linear-gradient(90deg, transparent 0 43%, rgba(246, 240, 223, 0.72) 43% 58%, transparent 58% 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.24));
-  pointer-events: none;
+      rgba(4, 23, 15, 0.78) 0%,
+      rgba(4, 23, 15, 0.6) 42%,
+      rgba(4, 23, 15, 0.12) 100%
+    ),
+    linear-gradient(0deg, rgba(4, 23, 15, 0.42), transparent 44%);
 }
 
 .cjHeroMedia {
   position: absolute;
   z-index: -2;
   inset: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: block;
 }
 
 .cjPhoto {
-  position: relative;
-  min-width: 0;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
 
@@ -473,43 +518,31 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.08) contrast(1.08);
+  object-position: center 48%;
+  filter: saturate(1.13) contrast(1.04);
 }
 
 .cjPhotoLeft img {
-  transform: scale(1.08);
-  transform-origin: center;
-  object-position: center;
-}
-
-.cjPhotoRight img {
-  transform: scale(1.08);
-  transform-origin: center;
-  object-position: center;
+  object-position: center 48%;
 }
 
 .cjHeroCopy {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  left: clamp(20px, 5vw, 76px);
-  bottom: clamp(92px, 13vw, 150px);
-  width: min(560px, 43vw);
-  text-shadow: 0 3px 28px rgba(0, 0, 0, 0.48);
+  width: min(680px, 70%);
+  margin-left: max(4%, calc((100% - 1180px) / 2));
+  padding: 72px 0 132px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.28);
 }
 
 .cjBrandLockup {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 10px 14px 10px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(4, 23, 15, 0.58);
-  backdrop-filter: blur(14px);
+  gap: 12px;
   color: #fff;
   font-size: 13px;
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -521,41 +554,40 @@ img {
 }
 
 .cjHeroCopy h1 {
-  margin: 24px 0 14px;
-  max-width: 620px;
-  font-size: clamp(45px, 6vw, 88px);
-  line-height: 0.96;
+  margin: 24px 0 16px;
+  max-width: 660px;
+  font-size: 68px;
+  line-height: 0.98;
 }
 
 .cjHeroCopy p {
-  margin: 0;
-  max-width: 520px;
+  margin: 0 0 24px;
+  max-width: 540px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(17px, 1.6vw, 21px);
+  font-size: 19px;
   line-height: 1.56;
 }
 
+.heroActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
 .cjStartOrder {
-  position: absolute;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  min-width: 282px;
-  min-height: 76px;
+  gap: 10px;
+  min-height: 58px;
   border-radius: 8px;
-  padding: 18px 28px;
-  background: var(--red);
-  color: #fff;
-  box-shadow: 0 18px 55px rgba(108, 12, 6, 0.36);
-  font-size: clamp(26px, 3vw, 42px);
-  font-weight: 950;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  transform: translate(-50%, -50%);
+  padding: 15px 21px;
+  background: var(--sun);
+  color: #182418;
+  box-shadow: 0 12px 34px rgba(102, 33, 9, 0.3);
+  font-size: 18px;
+  font-weight: 900;
   transition:
     transform 0.2s ease,
     background 0.2s ease,
@@ -563,90 +595,63 @@ img {
 }
 
 .cjStartOrder:hover {
-  background: #d91c13;
-  box-shadow: 0 22px 65px rgba(108, 12, 6, 0.48);
-  transform: translate(-50%, -52%);
+  background: #ffb347;
+  box-shadow: 0 16px 38px rgba(102, 33, 9, 0.38);
+  transform: translateY(-2px);
 }
 
-.cjNavCard {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  right: clamp(24px, 8vw, 150px);
-  width: min(330px, 27vw);
-  padding: 34px 0 22px;
-  color: #fff;
-  text-align: left;
-  transform: translateY(-50%);
-}
-
-.cjLogoText {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(58px, 7vw, 104px);
-  font-weight: 900;
-  line-height: 0.8;
-  letter-spacing: 0;
-  text-align: center;
-  text-shadow: 0 8px 36px rgba(0, 0, 0, 0.32);
-}
-
-.cjNavCard > p {
-  margin: 14px 0 26px;
-  color: rgba(255, 255, 255, 0.88);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(24px, 3vw, 42px);
-  font-weight: 900;
-  text-align: center;
-  text-transform: lowercase;
-}
-
-.cjNavCard nav {
-  display: grid;
-}
-
-.cjNavCard nav a {
-  display: grid;
-  grid-template-columns: 32px 1fr 20px;
+.cjCallLink {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 68px;
-  border-top: 1px solid rgba(255, 255, 255, 0.72);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(15px, 1.35vw, 20px);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease,
-    background 0.2s ease;
-}
-
-.cjNavCard nav a:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
-}
-
-.cjNavCard nav a:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateX(6px);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.55);
+  text-underline-offset: 5px;
+}
+
+.paymentBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.paymentBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.cashBadge {
+  border-color: var(--sun);
+  background: var(--sun);
+  color: #182418;
+}
+
+.comingBadge {
+  background: rgba(4, 23, 15, 0.32);
 }
 
 .cjHeroFoot {
   position: absolute;
   z-index: 2;
-  right: clamp(18px, 4vw, 66px);
+  right: 4%;
   bottom: 22px;
-  left: clamp(18px, 4vw, 66px);
+  left: 4%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 13px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  background: rgba(4, 23, 15, 0.56);
-  backdrop-filter: blur(14px);
+  gap: 24px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
   color: rgba(255, 255, 255, 0.9);
   font-size: 14px;
   font-weight: 800;
@@ -657,6 +662,102 @@ img {
   align-items: center;
   gap: 8px;
   min-width: 0;
+}
+
+.localDelivery {
+  background: #f6f0df;
+}
+
+.deliveryLead {
+  max-width: 430px;
+  margin: 0;
+}
+
+.zoneGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.zoneRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+  padding: 18px;
+  background: #fff;
+}
+
+.zoneRow strong {
+  color: var(--forest);
+  white-space: nowrap;
+}
+
+.reviewsSection {
+  overflow: hidden;
+  background: #fff;
+}
+
+.reviewSampleLabel {
+  border-radius: 6px;
+  padding: 8px 11px;
+  background: #f6f0df;
+  color: #5b4a31;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.reviewSlider {
+  display: grid;
+  grid-auto-columns: minmax(280px, 1fr);
+  grid-auto-flow: column;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 2px 1px 14px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: #a8ad9f transparent;
+}
+
+.reviewSlide {
+  min-height: 210px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  background: var(--paper);
+  scroll-snap-align: start;
+}
+
+.reviewStars {
+  color: #c14b20;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+
+.reviewSlide blockquote {
+  margin: 16px 0;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.reviewSlide p,
+.reviewDisclosure {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.reviewSlide p {
+  margin-bottom: 0;
+  font-weight: 800;
+}
+
+.reviewDisclosure {
+  margin: 8px 0 0;
 }
 
 .homeIntro {
@@ -764,7 +865,7 @@ img {
 }
 
 .orderModes {
-  background: #10150f;
+  background: var(--forest);
   color: #fff;
 }
 
@@ -815,30 +916,58 @@ img {
 
 @media (max-width: 1050px) {
   .cjHero {
-    min-height: 780px;
+    min-height: 700px;
   }
 
   .cjHeroCopy {
-    width: min(530px, 52vw);
+    width: min(650px, 72%);
   }
 
-  .cjNavCard {
-    right: 34px;
-    width: 300px;
-  }
-
-  .cjStartOrder {
-    left: 44%;
+  .cjHeroCopy h1 {
+    font-size: 58px;
   }
 }
 
 @media (max-width: 850px) {
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 48px auto;
+    gap: 4px 12px;
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 4px;
+  }
+
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .brand img {
+    width: 44px;
+    height: 40px;
+  }
+
   .links {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 20px;
+    min-width: 0;
+    overflow-x: auto;
+    padding: 2px 0 8px;
+    font-size: 14px;
+    scrollbar-width: none;
+    white-space: nowrap;
+  }
+
+  .links::-webkit-scrollbar {
     display: none;
   }
 
-  .nav {
-    height: 68px;
+  .headerCart {
+    display: none;
   }
 
   .heroGrid {
@@ -874,85 +1003,45 @@ img {
 
   .mobileCart {
     position: fixed;
-    z-index: 10;
+    z-index: 35;
     right: 4%;
-    bottom: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom));
     left: 4%;
-    display: block;
+    display: flex;
+    min-height: 54px;
+    background: var(--sun);
+    color: #13251b;
+    box-shadow: 0 8px 24px rgba(18, 32, 22, 0.25);
+  }
+
+  body {
+    padding-bottom: 78px;
   }
 
   .cjHero {
-    min-height: auto;
-    padding: 54px 0 22px;
-  }
-
-  .cjHero::after {
-    background:
-      linear-gradient(180deg, rgba(4, 23, 15, 0.18), rgba(4, 23, 15, 0.9)),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.26), transparent);
-  }
-
-  .cjHeroMedia {
-    grid-template-columns: 1fr;
-  }
-
-  .cjPhotoRight {
-    display: none;
-  }
-
-  .cjPhotoLeft img {
-    transform: scale(1.1);
-    object-position: center;
-  }
-
-  .cjHeroCopy,
-  .cjStartOrder,
-  .cjNavCard,
-  .cjHeroFoot {
-    position: relative;
-    inset: auto;
-    width: min(92%, 620px);
-    margin-right: auto;
-    margin-left: auto;
-    transform: none;
+    min-height: 660px;
   }
 
   .cjHeroCopy {
-    bottom: auto;
+    width: min(620px, 88%);
+    margin-left: 6%;
+    padding: 58px 0 140px;
   }
 
   .cjHeroCopy h1 {
-    font-size: clamp(42px, 11vw, 72px);
-  }
-
-  .cjStartOrder {
-    margin-top: 30px;
-  }
-
-  .cjStartOrder:hover {
-    transform: translateY(-2px);
-  }
-
-  .cjNavCard {
-    margin-top: 30px;
-    padding: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 8px;
-    background: rgba(4, 23, 15, 0.64);
-    backdrop-filter: blur(14px);
-  }
-
-  .cjLogoText {
-    font-size: 56px;
-  }
-
-  .cjNavCard > p {
-    font-size: 28px;
+    font-size: 50px;
   }
 
   .cjHeroFoot {
-    display: grid;
-    margin-top: 22px;
+    gap: 16px;
+  }
+
+  .zoneGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reviewSlider {
+    grid-auto-columns: minmax(80%, 1fr);
   }
 
   .featureCards,
@@ -963,11 +1052,22 @@ img {
 
 @media (max-width: 620px) {
   .top {
-    font-size: 12px;
+    gap: 9px;
+    font-size: 11px;
+  }
+
+  .top > span:first-child,
+  .top > span[aria-hidden="true"] {
+    display: none;
   }
 
   .brand span {
     display: none;
+  }
+
+  .links {
+    gap: 18px;
+    font-size: 13px;
   }
 
   .btn {
@@ -997,27 +1097,65 @@ img {
   }
 
   .cjHero {
-    padding-top: 42px;
+    min-height: 660px;
   }
 
   .cjBrandLockup {
-    align-items: flex-start;
-    border-radius: 8px;
+    align-items: center;
   }
 
   .cjHeroCopy p {
     font-size: 16px;
   }
 
-  .cjStartOrder {
-    width: min(92%, 360px);
-    min-width: 0;
-    min-height: 64px;
-    font-size: 25px;
+  .cjHeroCopy {
+    width: 92%;
+    margin-left: 4%;
+    padding-top: 48px;
+    padding-bottom: 154px;
   }
 
-  .cjNavCard {
-    padding: 20px;
+  .cjHeroCopy h1 {
+    font-size: 42px;
+  }
+
+  .heroActions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cjStartOrder {
+    width: fit-content;
+    min-height: 54px;
+    font-size: 17px;
+  }
+
+  .paymentBadges {
+    gap: 6px;
+  }
+
+  .paymentBadge {
+    font-size: 11px;
+  }
+
+  .cjHeroFoot {
+    display: grid;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .zoneGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .zoneRow {
+    min-height: 60px;
+    padding: 14px;
+  }
+
+  .reviewSlider {
+    grid-auto-columns: minmax(88%, 1fr);
   }
 
   .cjNavCard nav a {
