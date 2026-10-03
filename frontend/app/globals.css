@@ -1987,55 +1987,6 @@ img {
   margin-top: 42px;
 }
 
-.customerFaces {
-  display: flex;
-  align-items: center;
-  padding-left: 1px;
-}
-
-.customerFacesReference {
-  width: 184px;
-  height: 58px;
-  flex: 0 0 184px;
-  padding: 0;
-  background-image: url("/images/reference/kimmere-kampala-warmth.png");
-  background-position: -111px -763px;
-  background-repeat: no-repeat;
-  background-size: 1799px 874px;
-}
-
-.customerFaces .face,
-.customerFaces > strong {
-  display: grid;
-  width: 43px;
-  height: 43px;
-  place-items: center;
-  margin-left: -10px;
-  border: 2px solid #fffdf7;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.customerFaces .face:first-child {
-  margin-left: 0;
-}
-
-.faceOne { background: linear-gradient(150deg, #73878c, #d6b9a7); }
-.faceTwo { background: linear-gradient(150deg, #9d5938, #e9b36c); }
-.faceThree { background: linear-gradient(150deg, #e1c59d, #6f5543); }
-.faceFour { background: linear-gradient(150deg, #66402f, #e5a279); }
-
-.customerFaces > strong {
-  width: 54px;
-  height: 54px;
-  margin-left: -8px;
-  border-width: 3px;
-  background: #087236;
-  font-size: 14px;
-}
-
 .ratingCopy {
   display: grid;
   gap: 8px;

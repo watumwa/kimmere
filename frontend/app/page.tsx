@@ -72,7 +72,6 @@ export default function Home() {
             </div>
 
             <div className="customerProof">
-              <div className="customerFaces customerFacesReference" aria-hidden="true" />
               <div className="ratingCopy">
                 <div className="ratingStars" aria-label="4.8 out of 5 stars">
                   {[1, 2, 3, 4, 5].map((star) => <Star key={star} size={18} fill="currentColor" />)}
