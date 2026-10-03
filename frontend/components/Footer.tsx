@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { MessageCircle, Phone } from "lucide-react";
+import { Facebook, Instagram, MessageCircle, Phone, Youtube } from "lucide-react";
 
 const phoneNumber = "0740044426";
-const whatsappUrl = "https://wa.me/256740044426?text=Hello%20Kimmere%20Foodhub";
+const whatsappUrl = "https://wa.me/256754188477?text=Hello%20Kimmere%20Foodhub";
 const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Kampala%2C%20Uganda";
 
 export default function Footer() {
@@ -18,6 +18,20 @@ export default function Footer() {
           <a className="footerAction" href={whatsappUrl} target="_blank" rel="noreferrer">
             <MessageCircle size={17} /> Chat on WhatsApp
           </a>
+          <div className="socialBlock">
+            <h3>Follow Kimmere</h3>
+            <div className="socialIcons" aria-label="Social profile links coming soon">
+              <span className="socialIcon" aria-label="Instagram profile link coming soon" title="Instagram link coming soon">
+                <Instagram size={19} />
+              </span>
+              <span className="socialIcon" aria-label="Facebook profile link coming soon" title="Facebook link coming soon">
+                <Facebook size={19} />
+              </span>
+              <span className="socialIcon" aria-label="YouTube channel link coming soon" title="YouTube link coming soon">
+                <Youtube size={19} />
+              </span>
+            </div>
+          </div>
         </div>
         <div>
           <h3>Order</h3>

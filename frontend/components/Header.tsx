@@ -10,6 +10,7 @@ const whatsappUrl = "https://wa.me/256754188477?text=Hello%20Kimmere%20Foodhub";
 
 export default function Header() {
   const [count, setCount] = useState(0);
+  const [floatingControlsVisible, setFloatingControlsVisible] = useState(true);
 
   useEffect(() => {
     const updateCount = () =>
@@ -19,6 +20,22 @@ export default function Header() {
     addEventListener("cart-change", updateCount);
     return () => removeEventListener("cart-change", updateCount);
   }, []);
+
+  useEffect(() => {
+    let previousScrollY = window.scrollY;
+
+    const updateFloatingControls = () => {
+      const currentScrollY = window.scrollY;
+      const shouldShow = currentScrollY < 80 || currentScrollY < previousScrollY;
+      setFloatingControlsVisible((visible) => visible === shouldShow ? visible : shouldShow);
+      previousScrollY = currentScrollY;
+    };
+
+    addEventListener("scroll", updateFloatingControls, { passive: true });
+    return () => removeEventListener("scroll", updateFloatingControls);
+  }, []);
+
+  const floatingClass = floatingControlsVisible ? "" : " floatingActionsHidden";
 
   return (
     <>
@@ -30,7 +47,10 @@ export default function Header() {
           <MessageCircle size={14} /> WhatsApp
         </a>
       </div>
-      <div className="container nav">
+      <div
+        className={`container nav${floatingControlsVisible ? "" : " navHidden"}`}
+        aria-hidden={!floatingControlsVisible}
+      >
         <Link className="brand" href="/">
           <img src="/images/brand/kimmere-logo.jpg" alt="Kimmere Foodhub" />
           <span>KIMMERE</span>
@@ -47,16 +67,24 @@ export default function Header() {
           <ShoppingBag size={17} /> Cart ({count})
         </Link>
       </div>
-      <Link className="mobileCart btn" href="/cart" aria-label={`Open cart, ${count} items`}>
+      <Link
+        className={`mobileCart btn${floatingClass}`}
+        href="/cart"
+        aria-label={`Open cart, ${count} items`}
+        aria-hidden={!floatingControlsVisible}
+        tabIndex={floatingControlsVisible ? 0 : -1}
+      >
         <ShoppingBag size={19} /> Cart ({count})
       </Link>
       <a
-        className="floatingWhatsapp"
+        className={`floatingWhatsapp${floatingClass}`}
         href={whatsappUrl}
         target="_blank"
         rel="noreferrer"
         aria-label="Chat with Kimmere on WhatsApp"
         title="Chat with Kimmere on WhatsApp"
+        aria-hidden={!floatingControlsVisible}
+        tabIndex={floatingControlsVisible ? 0 : -1}
       >
         <MessageCircle size={22} aria-hidden="true" />
       </a>
