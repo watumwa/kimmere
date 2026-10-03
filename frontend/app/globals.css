@@ -515,11 +515,52 @@ img {
 }
 
 .cjPhoto img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 48%;
   filter: saturate(1.13) contrast(1.04);
+}
+
+.heroPhotoFish {
+  animation: heroPhotoCycle 14s infinite;
+}
+
+.heroPhotoBeef {
+  animation: heroPhotoCycle 14s -7s infinite;
+}
+
+@keyframes heroPhotoCycle {
+  0%,
+  42% {
+    opacity: 1;
+  }
+
+  50%,
+  92% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroPhotoFish,
+  .heroPhotoBeef {
+    animation: none;
+  }
+
+  .heroPhotoFish {
+    opacity: 1;
+  }
+
+  .heroPhotoBeef {
+    opacity: 0;
+  }
 }
 
 .cjPhotoLeft img {
@@ -611,36 +652,6 @@ img {
   text-underline-offset: 5px;
 }
 
-.paymentBadges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.paymentBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  padding: 7px 10px;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.cashBadge {
-  border-color: var(--sun);
-  background: var(--sun);
-  color: #182418;
-}
-
-.comingBadge {
-  background: rgba(4, 23, 15, 0.32);
-}
-
 .cjHeroFoot {
   position: absolute;
   z-index: 2;
@@ -662,40 +673,6 @@ img {
   align-items: center;
   gap: 8px;
   min-width: 0;
-}
-
-.localDelivery {
-  background: #f6f0df;
-}
-
-.deliveryLead {
-  max-width: 430px;
-  margin: 0;
-}
-
-.zoneGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--line);
-}
-
-.zoneRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 72px;
-  padding: 18px;
-  background: #fff;
-}
-
-.zoneRow strong {
-  color: var(--forest);
-  white-space: nowrap;
 }
 
 .reviewsSection {
@@ -1036,10 +1013,6 @@ img {
     gap: 16px;
   }
 
-  .zoneGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .reviewSlider {
     grid-auto-columns: minmax(80%, 1fr);
   }
@@ -1131,27 +1104,10 @@ img {
     font-size: 17px;
   }
 
-  .paymentBadges {
-    gap: 6px;
-  }
-
-  .paymentBadge {
-    font-size: 11px;
-  }
-
   .cjHeroFoot {
     display: grid;
     gap: 8px;
     font-size: 13px;
-  }
-
-  .zoneGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .zoneRow {
-    min-height: 60px;
-    padding: 14px;
   }
 
   .reviewSlider {

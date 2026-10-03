@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import {
   ArrowRight,
-  Banknote,
   Clock3,
   Coffee,
   Info,
@@ -12,7 +11,6 @@ import {
   Truck,
   Utensils,
 } from 'lucide-react';
-import { demoDeliveryZones } from '@/lib/demo-data';
 
 const favourites = [
   {
@@ -45,11 +43,11 @@ const guestNotes = [
   },
   {
     quote: 'Ordering for the whole team was easy, and everyone found a favourite.',
-    source: 'Team catering · Ntinda',
+    source: 'Team catering',
   },
   {
     quote: 'A proper local plate that made a busy workday feel like home.',
-    source: 'Lunch regular · Bugolobi',
+    source: 'Lunch regular',
   },
 ];
 
@@ -59,7 +57,17 @@ export default function Home() {
       <section className="cjHero" aria-label="Kimmere Foodhub">
         <div className="cjHeroMedia" aria-hidden="true">
           <div className="cjPhoto cjPhotoLeft">
-            <img src="/images/food/luwombo-open.jpeg" alt="" />
+            <img
+              className="heroPhotoFish"
+              src="/images/food/feast-platter-hero.webp"
+              alt=""
+              fetchPriority="high"
+            />
+            <img
+              className="heroPhotoBeef"
+              src="/images/food/local-platter-hero.webp"
+              alt=""
+            />
           </div>
         </div>
 
@@ -83,11 +91,6 @@ export default function Home() {
               <Phone size={18} /> Call 0740044426
             </a>
           </div>
-          <div className="paymentBadges" aria-label="Payment options">
-            <span className="paymentBadge cashBadge"><Banknote size={17} /> Cash at pickup or delivery</span>
-            <span className="paymentBadge comingBadge">MTN MoMo · coming soon</span>
-            <span className="paymentBadge comingBadge">Airtel Money · coming soon</span>
-          </div>
         </div>
 
         <div className="cjHeroFoot">
@@ -97,29 +100,6 @@ export default function Home() {
           <span>
             <MapPin size={18} /> Kampala
           </span>
-        </div>
-      </section>
-
-      <section className="section localDelivery" id="delivery">
-        <div className="container">
-          <div className="sectionHead">
-            <div>
-              <div className="eyebrow">Kampala delivery</div>
-              <h2 className="title">Good food, closer to you.</h2>
-            </div>
-            <p className="lead deliveryLead">
-              Delivery starts at UGX 2,500. Choose your area at checkout to see
-              the exact fee.
-            </p>
-          </div>
-          <div className="zoneGrid">
-            {demoDeliveryZones.map((zone) => (
-              <div className="zoneRow" key={zone.id}>
-                <span>{zone.name}</span>
-                <strong>UGX {zone.fee.toLocaleString()}</strong>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
