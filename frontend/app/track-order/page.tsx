@@ -1,1 +1,76 @@
-"use client";import{useSearchParams}from'next/navigation';import{useState}from'react';import{api}from'@/lib/api';export default function Track(){const sp=useSearchParams();const[n,setN]=useState(sp.get('number')||''),[o,setO]=useState<any>(null),[err,setErr]=useState('');async function go(){try{setErr('');setO(await api('/orders/track/'+n+'/'))}catch(e:any){setErr(e.message)}}return <main className="section"><div className="container"><div className="eyebrow">Order status</div><h1 className="title">Track your order</h1><div className="panel"><div className="row"><input className="search" value={n} onChange={e=>setN(e.target.value)} placeholder="KIM-2026-000001"/><button className="btn" onClick={go}>Track</button></div>{err&&<p className="notice error">{err}</p>}{o&&<div style={{marginTop:25}}><div className="row"><h2>{o.order_number}</h2><span className="pill">{o.status}</span></div><p>Total: UGX {Number(o.total).toLocaleString()}</p><div className="timeline">{o.history.map((h:any,i:number)=><div key={i}><b>{h.new_status}</b><br/><small>{new Date(h.created_at).toLocaleString()}</small></div>)}</div></div>}</div></div></main>}
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
+import { api } from "@/lib/api";
+
+function TrackOrderContent() {
+  const sp = useSearchParams();
+  const [n, setN] = useState(sp.get("number") || "");
+  const [o, setO] = useState<any>(null);
+  const [err, setErr] = useState("");
+
+  async function go() {
+    try {
+      setErr("");
+      setO(await api("/orders/track/" + n + "/"));
+    } catch (e: any) {
+      setErr(e.message);
+    }
+  }
+
+  return (
+    <main className="section">
+      <div className="container">
+        <div className="eyebrow">Order status</div>
+        <h1 className="title">Track your order</h1>
+        <div className="panel">
+          <div className="row">
+            <input
+              className="search"
+              value={n}
+              onChange={(e) => setN(e.target.value)}
+              placeholder="KIM-2026-000001"
+            />
+            <button className="btn" onClick={go}>
+              Track
+            </button>
+          </div>
+          {err && <p className="notice error">{err}</p>}
+          {o && (
+            <div style={{ marginTop: 25 }}>
+              <div className="row">
+                <h2>{o.order_number}</h2>
+                <span className="pill">{o.status}</span>
+              </div>
+              <p>Total: UGX {Number(o.total).toLocaleString()}</p>
+              <div className="timeline">
+                {o.history.map((h: any, i: number) => (
+                  <div key={i}>
+                    <b>{h.new_status}</b>
+                    <br />
+                    <small>{new Date(h.created_at).toLocaleString()}</small>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export default function Track() {
+  return (
+    <Suspense
+      fallback={
+        <main className="section">
+          <div className="container panel">Loading order tracker...</div>
+        </main>
+      }
+    >
+      <TrackOrderContent />
+    </Suspense>
+  );
+}
