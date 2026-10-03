@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Bike,
+  ChevronLeft,
+  ChevronRight,
   CirclePlay,
   Leaf,
   ShoppingBag,
@@ -11,6 +16,44 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 
+const dishes = [
+  {
+    name: "Beef Stew",
+    detail: "with Rice, Greens & Salad",
+    image: "/images/food/local-platter.jpeg",
+    position: "center",
+    thumbnailPosition: "-891px -647px",
+  },
+  {
+    name: "Chicken Luwombo",
+    detail: "Slow-steamed in banana leaf",
+    image: "/images/food/luwombo-open.jpeg",
+    position: "center",
+    thumbnailPosition: "-1038px -647px",
+  },
+  {
+    name: "Grilled Chicken",
+    detail: "with golden sides & salad",
+    image: "/images/food/feast-platter.jpeg",
+    position: "center",
+    thumbnailPosition: "-1189px -647px",
+  },
+  {
+    name: "Fish Luwombo",
+    detail: "A slow-cooked local favourite",
+    image: "/images/food/luwombo-bowl.jpeg",
+    position: "center",
+    thumbnailPosition: "-1339px -647px",
+  },
+  {
+    name: "Fresh Juices",
+    detail: "Cold & freshly blended",
+    image: "/images/menu/menu-snacks.jpg",
+    position: "right center",
+    thumbnailPosition: "-1488px -647px",
+  },
+];
+
 const servicePoints = [
   { icon: Sprout, title: "Freshly", detail: "Prepared Daily" },
   { icon: UtensilsCrossed, title: "Local", detail: "Favourites" },
@@ -19,6 +62,26 @@ const servicePoints = [
 ];
 
 export default function Home() {
+  const [activeDish, setActiveDish] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const timer = window.setInterval(() => {
+      setActiveDish((current) => (current + 1) % dishes.length);
+    }, 4500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const selectPreviousDish = () =>
+    setActiveDish((current) => (current - 1 + dishes.length) % dishes.length);
+
+  const selectNextDish = () =>
+    setActiveDish((current) => (current + 1) % dishes.length);
+
+  const currentDish = dishes[activeDish];
+
   return (
     <main className="warmthHome">
       <section className="warmthHero" aria-labelledby="warmth-title">
@@ -31,6 +94,68 @@ export default function Home() {
             alt=""
             aria-hidden="true"
           />
+        </div>
+
+        <div className="foodCarousel" aria-label="Featured dishes carousel">
+          {activeDish !== 0 && (
+            <img
+              className="changingHeroDish"
+              key={currentDish.name}
+              src={currentDish.image}
+              style={{ objectPosition: currentDish.position }}
+              alt={currentDish.name}
+            />
+          )}
+
+          <div className="carouselDishLabel" aria-live="polite">
+            <small>Signature Dish</small>
+            <strong>{currentDish.name}</strong>
+            <span>{currentDish.detail}</span>
+          </div>
+
+          <button
+            className="carouselArrow carouselArrowLeft"
+            type="button"
+            onClick={selectPreviousDish}
+            aria-label="Show previous dish"
+          >
+            <ChevronLeft size={30} />
+          </button>
+          <button
+            className="carouselArrow carouselArrowRight"
+            type="button"
+            onClick={selectNextDish}
+            aria-label="Show next dish"
+          >
+            <ChevronRight size={30} />
+          </button>
+
+          <div className="foodCarouselRail">
+            <div className="dishThumbnails">
+              {dishes.map((dish, index) => (
+                <button
+                  className={`dishThumbnail${index === activeDish ? " active" : ""}`}
+                  type="button"
+                  key={dish.name}
+                  onClick={() => setActiveDish(index)}
+                  aria-label={`Show ${dish.name}`}
+                  aria-current={index === activeDish ? "true" : undefined}
+                >
+                  <span
+                    className="dishThumbImage"
+                    style={{ backgroundPosition: dish.thumbnailPosition }}
+                    aria-hidden="true"
+                  />
+                  <span>{dish.name}</span>
+                </button>
+              ))}
+            </div>
+            <div className="carouselDots" aria-hidden="true">
+              {dishes.map((dish, index) => (
+                <span className={index === activeDish ? "active" : ""} key={dish.name} />
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="warmthHeroInner">
@@ -82,8 +207,24 @@ export default function Home() {
           </div>
 
           <div className="mobileFoodVisual">
-            <img src="/images/food/local-platter.jpeg" alt="Beef stew with rice, greens and salad" />
-            <span><small>Signature Dish</small><strong>Beef Stew</strong></span>
+            <img
+              key={currentDish.name}
+              src={currentDish.image}
+              style={{ objectPosition: currentDish.position }}
+              alt={currentDish.name}
+            />
+            <span><small>Signature Dish</small><strong>{currentDish.name}</strong></span>
+            <div className="mobileCarouselDots" aria-label="Choose a featured dish">
+              {dishes.map((dish, index) => (
+                <button
+                  className={index === activeDish ? "active" : ""}
+                  type="button"
+                  key={dish.name}
+                  onClick={() => setActiveDish(index)}
+                  aria-label={`Show ${dish.name}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

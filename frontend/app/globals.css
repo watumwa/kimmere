@@ -2017,6 +2017,212 @@ img {
   user-select: none;
 }
 
+.foodCarousel {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.changingHeroDish {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 47.2vw;
+  width: calc(100% - 47.2vw);
+  height: 100%;
+  border-radius: 155px 0 0;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.02);
+  animation: heroDishFade 0.65s ease both;
+}
+
+@keyframes heroDishFade {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.carouselDishLabel {
+  position: absolute;
+  z-index: 4;
+  top: 77px;
+  right: 64px;
+  display: grid;
+  width: 240px;
+  min-height: 148px;
+  align-content: center;
+  gap: 5px;
+  border-radius: 8px 18px 8px 16px;
+  padding: 22px 25px;
+  background:
+    linear-gradient(145deg, rgba(2, 28, 19, 0.98), rgba(3, 19, 15, 0.96)),
+    #031d14;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+
+.carouselDishLabel::after {
+  content: "";
+  width: 126px;
+  height: 5px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: #ff6d0c;
+  transform: rotate(-3deg);
+}
+
+.carouselDishLabel small {
+  color: #ff7211;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.carouselDishLabel strong {
+  font-size: 21px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.carouselDishLabel span {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carouselArrow {
+  position: absolute;
+  z-index: 5;
+  top: 271px;
+  display: grid;
+  width: 59px;
+  height: 59px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #fffdf8;
+  color: #0a4734;
+  box-shadow: 0 8px 25px rgba(6, 48, 31, 0.14);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.carouselArrow:hover {
+  color: #ff6810;
+  transform: scale(1.06);
+}
+
+.carouselArrowLeft {
+  left: 47.05vw;
+}
+
+.carouselArrowRight {
+  right: 3.1vw;
+}
+
+.foodCarouselRail {
+  position: absolute;
+  z-index: 5;
+  right: 8.7vw;
+  bottom: 72px;
+  left: 48.7vw;
+  min-height: 173px;
+  border-radius: 20px;
+  padding: 16px 16px 25px;
+  background: #fffdf8;
+  box-shadow: 0 15px 34px rgba(27, 44, 33, 0.12);
+  pointer-events: auto;
+}
+
+.dishThumbnails {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.dishThumbnail {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #172e29;
+  cursor: pointer;
+}
+
+.dishThumbImage {
+  display: block;
+  width: 100%;
+  height: 88px;
+  border: 3px solid transparent;
+  border-radius: 14px;
+  background-image: url("/images/reference/kimmere-kampala-warmth.png");
+  background-repeat: no-repeat;
+  background-size: 1799px 874px;
+  transition: border-color 0.22s ease, transform 0.22s ease;
+}
+
+.dishThumbnail:hover .dishThumbImage {
+  transform: translateY(-2px);
+}
+
+.dishThumbnail.active .dishThumbImage {
+  border-color: #ff650d;
+}
+
+.dishThumbnail > span:last-child {
+  display: block;
+  overflow: hidden;
+  margin-top: 8px;
+  color: #1b332e;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dishThumbnail.active > span:last-child {
+  color: #ff5f08;
+}
+
+.carouselDots {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carouselDots span {
+  width: 25px;
+  height: 4px;
+  border-radius: 999px;
+  background: #ddd9ce;
+  transition: background 0.22s ease;
+}
+
+.carouselDots span.active {
+  background: #ff650d;
+}
+
 .botanical {
   position: absolute;
   z-index: 0;
@@ -2064,6 +2270,19 @@ img {
   .referenceCartButton {
     min-width: 142px;
     padding-inline: 17px;
+  }
+
+  .foodCarouselRail {
+    right: 5vw;
+    left: 49vw;
+  }
+
+  .dishThumbnails {
+    gap: 9px;
+  }
+
+  .dishThumbnail > span:last-child {
+    font-size: 11px;
   }
 
   .warmthCopy {
@@ -2132,6 +2351,22 @@ img {
 
   .referenceHeroArt {
     opacity: 0.78;
+  }
+
+  .carouselDishLabel {
+    right: 30px;
+    width: 210px;
+  }
+
+  .foodCarouselRail {
+    right: 2.5vw;
+    left: 48vw;
+    min-height: 150px;
+    padding: 12px 12px 23px;
+  }
+
+  .dishThumbImage {
+    height: 72px;
   }
 
   .warmthHero::after {
@@ -2234,6 +2469,10 @@ img {
     display: none;
   }
 
+  .foodCarousel {
+    display: none;
+  }
+
   .warmthHero,
   .warmthHeroInner {
     min-height: auto;
@@ -2307,6 +2546,43 @@ img {
     color: #ff7c16;
     font-family: cursive;
     text-transform: none;
+  }
+
+  .mobileCarouselDots {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 16px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .mobileCarouselDots button {
+    width: 22px;
+    height: 5px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  .mobileCarouselDots button.active {
+    background: #ff650d;
+  }
+
+  .mobileFoodVisual > img {
+    animation: heroDishFade 0.65s ease both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .changingHeroDish,
+  .mobileFoodVisual > img {
+    animation: none;
   }
 }
 
