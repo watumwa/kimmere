@@ -59,13 +59,13 @@ export default function Home() {
           <div className="cjPhoto cjPhotoLeft">
             <img
               className="heroPhotoFish"
-              src="/images/food/feast-platter-hero.webp"
+              src="/images/food/feast-platter.jpeg"
               alt=""
               fetchPriority="high"
             />
             <img
               className="heroPhotoBeef"
-              src="/images/food/local-platter-hero.webp"
+              src="/images/food/local-platter.jpeg"
               alt=""
             />
           </div>
