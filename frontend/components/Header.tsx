@@ -50,6 +50,16 @@ export default function Header() {
       <Link className="mobileCart btn" href="/cart" aria-label={`Open cart, ${count} items`}>
         <ShoppingBag size={19} /> Cart ({count})
       </Link>
+      <a
+        className="floatingWhatsapp"
+        href={whatsappUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Chat on WhatsApp at ${phoneNumber}`}
+      >
+        <MessageCircle size={22} aria-hidden="true" />
+        <span>{phoneNumber}</span>
+      </a>
     </>
   );
 }
